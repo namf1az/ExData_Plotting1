@@ -1,0 +1,13 @@
+d<-read.table("../DATA/household_power_consumption.txt",sep=";",na.strings="?",colClasses="character")
+dd<-d[grep("(2007\\-02\\-01)|(2007\\-02\\-02)",as.Date(d[,1],format="%d/%m/%Y")),]
+dt<-strptime(paste(dd[,1],dd[,2]),"%d/%m/%Y %H:%M:%S")
+png(file="plot4.png")
+par(mfrow=c(2,2))
+plot(dt,dd[,3],type="l",xlab="",ylab="Global Active Power")
+plot(dt,dd[,5],type="l",xlab="datetime",ylab="Voltage")
+plot(dt,dd[,7],type="l",ylab="Energy sub metering",xlab="")
+lines(dt,dd[,8],col="red")
+lines(dt,dd[,9],col="blue")
+legend("topright",lty=c(1,1,1),col=c("black","red","blue"),legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),y.intersp=0.8,cex=0.8,bty="n")
+plot(dt,dd[,4],type="l",xlab="datetime",ylab="Global_reactive_power")
+dev.off()
